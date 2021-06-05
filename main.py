@@ -135,9 +135,9 @@ def lambda_handler(event, context):
                 doc_data[field] = matches.group(i + 1)
             actions.append(doc_data.copy())
         if cnt % int(es_bulk_chunk_size) == 0:
-            print(helpers.bulk(es, actions, index=index_name, doc_type=es_index_doc_type, chunk_size=es_bulk_chunk_size, es_bulk_initial_backoff=es_bulk_initial_backoff, es_bulk_max_retries=es_bulk_max_retries))
+            print(helpers.bulk(es, actions, index=index_name, doc_type=es_index_doc_type, chunk_size=es_bulk_chunk_size, initial_backoff=es_bulk_initial_backoff, max_retries=es_bulk_max_retries))
             actions = []
-    print(helpers.bulk(es, actions, index=index_name, doc_type=es_index_doc_type, chunk_size=es_bulk_chunk_size, es_bulk_initial_backoff=es_bulk_initial_backoff, es_bulk_max_retries=es_bulk_max_retries))
+    print(helpers.bulk(es, actions, index=index_name, doc_type=es_index_doc_type, chunk_size=es_bulk_chunk_size, initial_backoff=es_bulk_initial_backoff, max_retries=es_bulk_max_retries))
 
     logger.info('File processing complete. Check logs at %s' % es_kibana_endpoint)
 
